@@ -5,7 +5,7 @@
 
 Take control of your energy usage with this DIY 3-phase energy monitor! Using three PZEM004T v3.0 modules, this device measures voltage, current, power, and energy consumption for each phase independently. With seamless integration into **Home Assistant** via ESPHome or MQTT, enjoy real-time data visualization, custom automations, and alerts. Affordable, reliable, and open-source, it's the perfect solution for homes or small businesses.  
 
----
+
 
 ## Features  
 
@@ -16,7 +16,6 @@ Take control of your energy usage with this DIY 3-phase energy monitor! Using th
 - Fully customizable for advanced features.  
 - **Standalone software version** coming soon.  
 
----
 
 ## Requirements  
 
@@ -26,22 +25,22 @@ Take control of your energy usage with this DIY 3-phase energy monitor! Using th
 - ESP-01 Programmer Diagram:  
   ![Diagram](https://community-assets.home-assistant.io/original/4X/c/b/1/cb1bb6b5b537060b4bb06bff090a3b9ce125b937.jpeg).  
 
----
+
 
 ## Enclosure  
 
 For a professional enclosure, consider:  
 - [APRA DB6 Ventilated Module](https://secure.reichelt.com/de/en/aprarail-db-6-modules-ventilated-closed-apra-db6-gbk-p209187.html?CCOUNTRY=445&LANGUAGE=en&?search=APRA+DB6+GBK&&r=1).  
 
----
+
 
 ## Demo  
 
 Follow us for more exciting projects and updates:  
 [![Instagram](https://img.shields.io/badge/Follow%20on-Instagram-E4405F?logo=instagram&logoColor=white)](https://www.instagram.com/opensourcethings_o/)  
 
----
 
-## 🌟 License  
+
+## License  
 
 This project is licensed under the **GPL-3.0 License**. [Learn More](https://www.gnu.org/licenses/gpl-3.0).  
