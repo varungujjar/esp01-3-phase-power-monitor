@@ -35,9 +35,8 @@ For a professional enclosure, consider:
 
 
 ## Demo  
-![Demo Video](https://www.instagram.com/p/DFTB-a2Neiz/).  
+[Demo Video](https://www.instagram.com/p/DFTB-a2Neiz/).  
 
-## 
 Follow us for more exciting projects and updates:  
 [![Instagram](https://img.shields.io/badge/Follow%20on-Instagram-E4405F?logo=instagram&logoColor=white)](https://www.instagram.com/opensourcethings_o/)  
 
