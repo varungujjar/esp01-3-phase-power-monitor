@@ -1,0 +1,200 @@
+substitutions:
+  name: power-monitor
+  friendly_name: Power Monitor
+
+esphome:
+  name: ${name}
+  friendly_name: ${friendly_name}
+  name_add_mac_suffix: false
+  project:
+    name: esphome.web
+    version: '1.0'
+
+esp8266:
+  board: esp01_1m
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+# Allow Over-The-Air updates
+#ota:
+
+# Allow provisioning Wi-Fi via serial
+#improv_serial:
+
+wifi:
+  # Set up a wifi access point
+  ap: {}
+
+# In combination with the `ap` this allows the user
+# to provision wifi credentials to the device via WiFi AP.
+captive_portal:
+
+dashboard_import:
+  package_import_url: github://esphome/example-configs/esphome-web/esp8266.yaml@main
+  import_full_config: true
+
+# To have a "next url" for improv serial
+web_server:
+
+
+uart:
+  tx_pin: GPIO1
+  rx_pin: GPIO3
+  baud_rate: 9600
+  stop_bits: 1
+
+modbus:
+  send_wait_time: 200ms
+  id: mod_bus_pzem
+
+modbus_controller:
+  # - id: pzem
+  #   # The current device address.
+  #   address: 0x1
+  #   # The special address 0xF8 is a broadcast address accepted by any pzem device,
+  #   # so if you use this address, make sure there is only one pzem device connected
+  #   # to the uart bus.
+  #   # address: 0xF8
+  #   modbus_id: mod_bus_pzem
+  #   command_throttle: 0ms
+  #   setup_priority: -10
+  #   update_interval: 30s
+
+sensor:
+  - platform: pzemac
+    id: pzemac1
+    address: 1
+    current:
+      name: "Current L1"
+    voltage:
+      name: "Voltage L1"
+    energy:
+      name: "Energy L1"
+      id: "energy_l1"
+    power:
+      name: "Power L1"
+      id: "power_l1"
+    frequency:
+      name: "Frequency L1"
+    power_factor:
+      name: "Power Factor L1"
+    update_interval: 15s 
+  - platform: pzemac
+    id: pzemac2
+    address: 2
+    current:
+      name: "Current L2"
+    voltage:
+      name: "Voltage L2"
+    energy:
+      name: "Energy L2"
+      id: "energy_l2"
+    power:
+      name: "Power L2"
+      id: "power_l2"
+    frequency:
+      name: "Frequency L2"
+    power_factor:
+      name: "Power Factor L2"
+    update_interval: 15s
+  - platform: pzemac
+    id: pzemac3
+    address: 3
+    current:
+      name: "Current L3"
+    voltage:
+      name: "Voltage L3"
+    energy:
+      name: "Energy L3"
+      id: "energy_l3"
+    power:
+      name: "Power L3"
+      id: "power_l3"
+    frequency:
+      name: "Frequency L3"
+    power_factor:
+      name: "Power Factor L3"
+    update_interval: 15s    
+
+  - platform: total_daily_energy
+    name: "Energy L1 Daily"
+    power_id: power_l1
+    id: energy_l1_daily
+    unit_of_measurement: kWh
+    accuracy_decimals: 1
+    icon: mdi:counter
+    filters:
+      - multiply: 0.001
+
+  - platform: total_daily_energy
+    name: "Energy L2 Daily"
+    power_id: power_l2
+    id: energy_l2_daily
+    unit_of_measurement: kWh
+    accuracy_decimals: 1
+    icon: mdi:counter
+    filters:
+      - multiply: 0.001
+
+  - platform: total_daily_energy
+    name: "Energy L3 Daily"
+    power_id: power_l3
+    id: energy_l3_daily
+    unit_of_measurement: kWh
+    accuracy_decimals: 1
+    icon: mdi:counter
+    filters:
+      - multiply: 0.001
+
+  - platform: template
+    name: "Total Power"
+    id: "total_power"
+    device_class: power
+    state_class: measurement
+    unit_of_measurement: W
+    accuracy_decimals: 1
+    lambda: |-
+      return id(power_l1).state + id(power_l2).state + id(power_l3).state ;
+
+  - platform: template
+    name: "Total Energy"
+    id: "total_energy"
+    device_class: energy
+    state_class: measurement
+    unit_of_measurement: kWh
+    accuracy_decimals: 0
+    filters:
+      - multiply: 0.001
+    lambda: |-
+      return id(energy_l1).state + id(energy_l2).state + id(energy_l3).state ;
+
+
+time:
+  - platform: homeassistant
+    id: homeassistant_time
+
+
+# switch:
+#   - platform: restart
+#     name: "${device_name}_Restart"
+
+#   - platform: uart
+#     name: "${device_name}_Reset"
+#     data: [0x01, 0x42, 0x80, 0x11]
+
+# interval:
+#   - interval: 5s
+#     then:
+#       - delay: 150ms
+#       - lambda: "id(pzemac1).update();"
+#       - delay: 150ms
+#       - lambda: "id(pzemac2).update();"
+#       - delay: 150ms
+#       - lambda: "id(pzemac3).update();"
+
+# https://github.com/esphome/issues/issues/2636
+# https://github.com/arendst/Tasmota/discussions/10567
